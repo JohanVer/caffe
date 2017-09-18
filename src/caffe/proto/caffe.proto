@@ -308,7 +308,7 @@ message ParamSpec {
 // NOTE
 // Update the next available ID when you add a new LayerParameter field.
 //
-// LayerParameter next available layer-specific ID: 147 (last added: recurrent_param)
+// LayerParameter next available layer-specific ID: 148 (last added: mean_param)
 message LayerParameter {
   optional string name = 1; // the layer name
   optional string type = 2; // the layer type
@@ -405,6 +405,21 @@ message LayerParameter {
   optional ThresholdParameter threshold_param = 128;
   optional TileParameter tile_param = 138;
   optional WindowDataParameter window_data_param = 129;
+  optional MeanParameter mean_param = 147;
+}
+
+message MeanParameter {
+  enum MeanOperation {
+    ADD = 1;
+    SUBTRACT = 4;
+  }
+
+  required MeanOperation operation = 1;
+  optional string file = 2;
+  repeated float value = 3;
+  optional float mean_scale = 4 [default = 1];
+  optional float input_scale = 5 [default = 1];
+  optional float output_scale = 6 [default = 1];
 }
 
 // Message that stores parameters used to apply transformation
